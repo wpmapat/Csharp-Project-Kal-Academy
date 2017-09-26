@@ -16,7 +16,7 @@ namespace InstantMessagingApp
         /// <summary>
         /// Date and time at which message is created
         /// </summary>
-        public DateTime MsgDateTime { get; set; }
+        public DateTime MessgeDateTime { get; set; }
         /// <summary>
         /// Name of the Sender
         /// </summary>

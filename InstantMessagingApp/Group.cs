@@ -12,7 +12,7 @@ namespace InstantMessagingApp
         /// <summary>
         /// 
         /// </summary>
-        public int Id { get; set; }
+        public int Id { get; private set; }
         /// <summary>
         /// Name os the User
         /// </summary>

@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="ActionManager.cs" />
+    <Compile Include="DBManager.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Program.cs" />

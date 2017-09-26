@@ -8,19 +8,32 @@ namespace InstantMessagingApp
 {
     class Account
     {
+        private static int lastAccountNumber=0;
+
         #region Properties
+
         /// <summary>
         /// This will hold an Account Number which will be our unique identifier
         /// </summary>
-        public int AccountNumber { get; set; }
+        public int AccountNumber { get; private set; }
+        
         /// <summary>
         /// Date and Time it was created
         /// </summary>
-        public string CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
+        
         /// <summary>
         /// Name of the User of App
         /// </summary>
         public string Name { get; set; }
-#endregion
+        
+        #endregion
+
+        public Account()
+        {
+            ///lastAccountNumber = +1;
+            ///AccountNumber = lastAccountNumber;
+            AccountNumber = ++lastAccountNumber;
+        }
     }
 }
