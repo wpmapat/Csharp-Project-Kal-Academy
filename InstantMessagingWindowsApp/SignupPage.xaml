@@ -1,0 +1,20 @@
+﻿<Page
+    x:Class="InstantMessagingWindowsApp.SignupPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:InstantMessagingWindowsApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel>
+            <TextBox Name="tName" Text="Enter your full name" />
+            <TextBox Name="tbPhoneno" Text="Enter your PhoneNo" InputScope="TelephoneNumber" />
+            <TextBox Name="tbEmailAddress" Text="Enter your EmailAddress" />
+            <TextBox Name="tbPassword" Text="Enter your Password" />
+            <Button Name="btnSubmit" Content="Submit" Click="btnSubmit_Click" /> 
+
+        </StackPanel>
+    </Grid>
+</Page>

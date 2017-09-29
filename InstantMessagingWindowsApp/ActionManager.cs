@@ -26,8 +26,7 @@ namespace InstantMessagingWindowsApp
         /// <returns></returns>
         public bool CreateAccount(User u1)
         {
-            dBManager.CreateAccount(u1);
-            return true;
+           return dBManager.CreateAccount(u1);
             
         }
         /// <summary>

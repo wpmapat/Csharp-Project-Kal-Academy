@@ -8,7 +8,7 @@ namespace InstantMessagingWindowsApp
 {
     class User:Account
     {
-        public User(string name, int phNumber, string emailAddress, string password)
+        public User(string name, string phNumber, string emailAddress, string password)
         {
             this.Name = name;
             this. PhoneNo = phNumber;
@@ -21,7 +21,7 @@ namespace InstantMessagingWindowsApp
         /// <summary>
         /// Phone number of the user
         /// </summary>
-        public int PhoneNo { get; set; }
+        public string PhoneNo { get; set; }
         
         /// <summary>
         /// Email Address of the user

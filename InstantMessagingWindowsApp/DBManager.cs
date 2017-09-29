@@ -35,7 +35,7 @@ namespace InstantMessagingWindowsApp
         /// <returns></returns>
         public User getUser(int phoneNumber, String password)
         {
-            User u1 = new User("John Dow", 25805, "test@test.com", "abc123");
+            User u1 = new User("John Dow", "25805", "test@test.com", "abc123");
             return u1;
         }
         #endregion 
