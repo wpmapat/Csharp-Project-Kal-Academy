@@ -20,11 +20,26 @@ namespace InstantMessagingWindowsApp
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class LoginPage : Page
     {
-        public MainPage()
+        public LoginPage()
         {
             this.InitializeComponent();
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// This code will navigate to Signup page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSignup_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(SignupPage), null);
         }
     }
 }
