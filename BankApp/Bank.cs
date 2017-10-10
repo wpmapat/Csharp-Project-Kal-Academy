@@ -8,6 +8,9 @@ namespace BankApp
 {
     public static class Bank
     {
+        private static BankModel db = new BankModel();
+
+
         public static Account CreateAccount(string emailAddress, TypeOfAccount accountType = TypeOfAccount.Checking, decimal initialDeposit = 0)
         {
 
@@ -22,7 +25,13 @@ namespace BankApp
             {
                 account.Deposit(initialDeposit);
             }
+            db.Accounts.Add(account);
+            db.SaveChanges();
             return account;
+        }
+        public static List<Account>GetAllAccounts(string emailAddress)
+        {
+            return db.Accounts.Where(a=>a.EmailAddress==emailAddress).ToList();
         }
     }
 }
