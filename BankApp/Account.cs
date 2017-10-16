@@ -36,10 +36,12 @@ namespace BankApp
         [StringLength(50,ErrorMessage ="Email address cannot be more than 50 characers.")]
         public string EmailAddress { get; set; }
         public decimal Balance { get; private set; }
-            
+        [Required]  
         public TypeOfAccount AccountType { get; set; }
 
         public DateTime CreatedDate { get; set; }
+        //Property to tell that one account is associated with many transactions
+        public virtual ICollection<Transaction> Transactions { get; set; }
         #endregion
 
         #region Constructor

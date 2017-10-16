@@ -23,6 +23,7 @@ namespace BankApp
                 Console.WriteLine("2. Deposit");
                 Console.WriteLine("3. Withdraw");
                 Console.WriteLine("4. Print all accounts");
+                Console.WriteLine("5. Print all Transactions");
 
                 var choice = Console.ReadLine();
                 switch (choice)
@@ -31,7 +32,7 @@ namespace BankApp
                         break;
                     case "1":
                         Console.WriteLine("Email Address");
-                        var EmailAddress = Console.ReadLine();
+                        var emailAddress = Console.ReadLine();
                         Console.WriteLine("Account type: ");
                         var accountTypes = Enum.GetNames(typeof(TypeOfAccount));
                         for (var i = 0; i < accountTypes.Length; i++)
@@ -41,28 +42,61 @@ namespace BankApp
                         var accountType = (TypeOfAccount)Enum.Parse(typeof(TypeOfAccount), Console.ReadLine());
                         Console.Write("Amount to deposit: ");
                         var amount = Convert.ToDecimal(Console.ReadLine());
-                        var account = Bank.CreateAccount(EmailAddress, accountType, amount);
+                        var account = Bank.CreateAccount(emailAddress, accountType, amount);
                         Console.WriteLine($"AN: {account.AccountNumber}, At: {account.AccountType}, Balance: {account.Balance:C}, CreatedDate:{account.CreatedDate}");
                         break;
                     case "2":
+                        PrintAllAccounts();
+                        Console.Write("Account Number:");
+                        var accountnumber = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Amount to Deposit:");
+                        amount=Convert.ToDecimal(Console.ReadLine());
+                        Bank.Deposit(accountnumber, amount);
+                        Console.WriteLine("Deposit was successful");
                         break;
                     case "3":
+                        PrintAllAccounts();
+                        Console.Write("Account Number:");
+                        accountnumber = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Amount to Withdraw:");
+                        amount = Convert.ToDecimal(Console.ReadLine());
+                        Bank.Withdraw(accountnumber, amount);
+                        Console.WriteLine("Withdrawl was successful");
                         break;
                     case "4":
-
-                        emailAddress = Console.ReadLine();
-                        var accounts=Bank.GetAllAccounts();
-                        foreach(var item in accounts)
-                        {
-                            Console.WriteLine();
-                        }
+                        PrintAllAccounts();
                         break;
+                    case "5":
+                        PrintAllAccounts();
+                        Console.Write("Account Number:");
+                        accountnumber = Convert.ToInt32(Console.ReadLine());
+                        var transactions = Bank.GetAllTransactions(accountnumber);
+                        foreach(var tran in transactions)
+                        {
+                            Console.WriteLine($"ID:{tran.Transactionid}, Date:{tran.TransactionsDate}, Type:{tran.TypeOfTransaction}, Amount:{tran.Amount:C}, Description:{tran.Description}");
+                        }
+                    break;
                     default:
                         break;
+
                 }
+                if (choice == "0")
+                    break;
             }
 
 
+
+        }
+
+        private static void PrintAllAccounts()
+        {
+            Console.Write("Email address:");
+            var emailAddress = Console.ReadLine();
+            var accounts = Bank.GetAllAccounts(emailAddress);
+            foreach (var item in accounts)
+            {
+                Console.WriteLine($"AN: {item.AccountNumber}, AT:{item.AccountType}, Balance:{item.Balance}, CreatedDate:{item.CreatedDate}");
+            }
 
         }
     }
