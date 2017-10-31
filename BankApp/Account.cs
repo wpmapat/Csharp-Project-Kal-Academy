@@ -20,7 +20,7 @@ namespace BankApp
     public class Account
     {
         //one shared memory for all instance->static means
-        private static int lastAccountnumber=0;
+        //private static int lastAccountnumber=0;
         #region Properties
         //Properties definations
 
@@ -39,7 +39,7 @@ namespace BankApp
         [Required]  
         public TypeOfAccount AccountType { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; private set; }
         //Property to tell that one account is associated with many transactions
         public virtual ICollection<Transaction> Transactions { get; set; }
         #endregion
@@ -51,7 +51,7 @@ namespace BankApp
             //lastAccountnumber = +1;
             //AccountNumber = lastAccountnumber;
 
-            AccountNumber = ++lastAccountnumber;
+            //AccountNumber = ++lastAccountnumber;
             CreatedDate = DateTime.Now;
         }
 
@@ -65,6 +65,9 @@ namespace BankApp
         }
         public void Withdraw(decimal amount)
         {
+            if(amount>Balance)
+               throw new ArgumentOutOfRangeException("ammount","Insufficient funds");
+            
             Balance -= amount;
         }
         #endregion
