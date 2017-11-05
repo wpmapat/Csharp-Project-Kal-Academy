@@ -35,9 +35,9 @@ namespace InstantMessagingWindowsApp
         /// <param name="phoneNumber"></param>
         /// <param name="password"></param>
         /// <returns></returns>. 
-        public User LoginUser(int phoneNumber,string password)
+        public User LoginUser(string emailaddress,string password)
         {
-            User u1=dBManager.getUser(phoneNumber,password);
+            User u1=dBManager.GetUser(emailaddress,password);
             return u1;
         }
         //public void EditAcct(User u)

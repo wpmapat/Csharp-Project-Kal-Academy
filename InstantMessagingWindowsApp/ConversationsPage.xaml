@@ -1,6 +1,5 @@
-﻿
-    <Page
-    x:Class="InstantMessagingWindowsApp.LoginPage"
+﻿<Page
+    x:Class="InstantMessagingWindowsApp.ConversationsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:InstantMessagingWindowsApp"
@@ -8,13 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <TextBox Name="tbUserName" Text="Enter your username" />
-            <TextBox Name="tbPassword" Text="Enter your password" />
-            <Button Name="btnLogin" Content="Login" Click="btnLogin_Click"/>
-            <Button Name="btnSignup" Content="Signup" Click="btnSignup_Click"/>
-        </StackPanel>
+
     </Grid>
 </Page>

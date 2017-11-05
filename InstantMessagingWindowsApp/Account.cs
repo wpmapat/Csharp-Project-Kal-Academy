@@ -8,14 +8,13 @@ namespace InstantMessagingWindowsApp
 {
     class Account
     {
-        private static int lastAccountNumber=0;
 
         #region Properties
 
         /// <summary>
         /// This will hold an Account Number which will be our unique identifier
         /// </summary>
-        public int AccountNumber { get; private set; }
+        public int AccountNumber { get; set; }
         
         /// <summary>
         /// Date and Time it was created
@@ -29,11 +28,6 @@ namespace InstantMessagingWindowsApp
         
         #endregion
 
-        public Account()
-        {
-            ///lastAccountNumber = +1;
-            ///AccountNumber = lastAccountNumber;
-            AccountNumber = ++lastAccountNumber;
-        }
+        
     }
 }
