@@ -32,13 +32,7 @@ namespace InstantMessagingWindowsApp
         {
             ActionManager ac1 = new ActionManager();
             User u1 = ac1.LoginUser(tbUserName.Text, tbPassword.Text);
-
-            //{
-            //var dialog = new MessageDialog("User creation succeeded");
-            //dialog.ShowAsync();
-            //this.Frame.Navigate(typeof(LoginPage), null);
-            //}
-
+                      
             if (u1 == null)
             {
                 var dialog = new MessageDialog("User creation failed.");
@@ -46,6 +40,8 @@ namespace InstantMessagingWindowsApp
             }
             else
             {
+                SharedData.LoggedInUser = u1;
+                this.Frame.Navigate(typeof(Chat));
                 this.Frame.Navigate(typeof(ConversationsPage), null);
             }
         }

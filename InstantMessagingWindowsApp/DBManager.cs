@@ -80,6 +80,48 @@ namespace InstantMessagingWindowsApp
 
             return u1;
         }
+        public void SendMessage(User u1,string toUserPhNo, string Messagetext)
+        {
+            User u2 = this.GetIdFromUser(toUserPhNo);
+
+            string queryString = string.Format("Insert into dbo.tblChat (MessageTime,FromUserId,ToUserId,MessageText) values ('{0}','{1}','{2}','{3}')",
+                DateTime.Now,
+                u1.AccountNumber,
+                u2.AccountNumber,
+                Messagetext);
+                
+
+            using (SqlConnection connection = new SqlConnection(
+               connectionstring))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+                                   
+        }
+        //helper method
+        private User GetIdFromUser(string phno)
+        {
+            User u1 = null;
+            string queryString = string.Format("Select * from tblUser Where PhNumber='{0}'", phno);
+
+            using (SqlConnection connection = new SqlConnection(
+               connectionstring))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    u1 = new User(reader[1].ToString(), reader[3].ToString(), reader[4].ToString(), reader[5].ToString());
+                    u1.AccountNumber = reader.GetInt32(0);
+                    break;
+                }
+                reader.Close();
+            }
+            return u1;
+        }
         #endregion 
     }
 }

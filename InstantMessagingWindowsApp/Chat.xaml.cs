@@ -20,16 +20,19 @@ namespace InstantMessagingWindowsApp
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class ConversationsPage : Page
+    public sealed partial class Chat : Page
     {
-        public ConversationsPage()
+        public Chat()
         {
             this.InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Chat), null);
+            ActionManager ac1 = new ActionManager();
+            string messageText = tbMessage.Text;
+            string phNumber =tbTo.Text;
+            ac1.SendMessage(SharedData.LoggedInUser,phNumber,messageText);
         }
     }
 }
