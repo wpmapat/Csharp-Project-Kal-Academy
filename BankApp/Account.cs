@@ -35,7 +35,7 @@ namespace BankApp
         [Required]
         [StringLength(50,ErrorMessage ="Email address cannot be more than 50 characers.")]
         public string EmailAddress { get; set; }
-        public decimal Balance { get; private set; }
+        public decimal Balance { get; set; }
         [Required]  
         public TypeOfAccount AccountType { get; set; }
 

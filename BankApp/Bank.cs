@@ -44,7 +44,7 @@ namespace BankApp
         {
             try
             {
-                var account = GetAccountbyAccountNumber(accountNumber, amount);
+                var account = GetAccountbyAccountNumber(accountNumber);
                 account.Deposit(amount);
                 var transaction = new Transaction
                 {
@@ -65,7 +65,7 @@ namespace BankApp
         }
         public static void Withdraw(int accountNumber, decimal amount)
         {
-            var account = GetAccountbyAccountNumber(accountNumber, amount);
+            var account = GetAccountbyAccountNumber(accountNumber);
             var transaction = new Transaction
             {
                 TransactionsDate = DateTime.UtcNow,
@@ -78,13 +78,20 @@ namespace BankApp
             db.SaveChanges();
         }
 
-        private static Account GetAccountbyAccountNumber(int accountNumber, decimal amount)
+        public static Account GetAccountbyAccountNumber(int accountNumber)
         {
             var account = db.Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault();
             if (account == null)
                 throw new ArgumentOutOfRangeException("Invalid account number");
-            account.Withdraw(amount);
             return account;
+        }
+
+        public static void EditAccount(Account account)
+        {
+            var oldAccount = GetAccountbyAccountNumber(account.AccountNumber);
+            db.Entry(oldAccount).State = System.Data.Entity.EntityState.Modified;
+            oldAccount.AccountType = account.AccountType;
+
         }
 
         public static List<Transaction>GetAllTransactions(int accountNumber)

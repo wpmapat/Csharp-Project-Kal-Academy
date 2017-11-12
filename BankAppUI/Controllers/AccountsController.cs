@@ -12,7 +12,7 @@ namespace BankAppUI.Controllers
 {
     public class AccountsController : Controller
     {
-        private BankModel db = new BankModel();
+        //private BankModel db = new BankModel();
         [Authorize]
         // GET: Accounts
         public ActionResult Index()
@@ -27,7 +27,7 @@ namespace BankAppUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
+            Account account = Bank.GetAccountbyAccountNumber(id.Value); ;
             if (account == null)
             {
                 return HttpNotFound();
@@ -64,7 +64,7 @@ namespace BankAppUI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
+            Account account = Bank.GetAccountbyAccountNumber(id.Value);
             if (account == null)
             {
                 return HttpNotFound();
@@ -81,46 +81,53 @@ namespace BankAppUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(account).State = EntityState.Modified;
-                db.SaveChanges();
+                Bank.EditAccount(account);
                 return RedirectToAction("Index");
             }
             return View(account);
         }
+        
+        public ActionResult Deposit (int? id)
+        {
+            if(id==null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var account = Bank.GetAccountbyAccountNumber(id.Value);
+            return View(account);
+        }
 
-        // GET: Accounts/Delete/5
-        public ActionResult Delete(int? id)
+        [HttpPost]
+        public ActionResult Deposit(FormCollection controls)
+        {
+            var accountNumber=Convert.ToInt32(controls["AccountNumber"]);
+            var amount=Convert.ToDecimal(controls["Amount"]);
+            Bank.Deposit(accountNumber, amount);
+            return RedirectToAction("Index"); 
+        }
+
+        public ActionResult Withdraw(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
-            if (account == null)
-            {
-                return HttpNotFound();
-            }
+            var account = Bank.GetAccountbyAccountNumber(id.Value);
             return View(account);
         }
 
-        // POST: Accounts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult Withdraw(FormCollection controls)
         {
-            Account account = db.Accounts.Find(id);
-            db.Accounts.Remove(account);
-            db.SaveChanges();
+            var accountNumber = Convert.ToInt32(controls["AccountNumber"]);
+            var amount = Convert.ToDecimal(controls["Amount"]);
+            Bank.Withdraw(accountNumber, amount);
             return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
+             base.Dispose(disposing);
         }
     }
 }
