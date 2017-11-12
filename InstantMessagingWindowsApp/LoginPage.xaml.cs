@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -29,7 +30,20 @@ namespace InstantMessagingWindowsApp
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-
+            ActionManager ac1 = new ActionManager();
+            User u1 = ac1.LoginUser(tbUserName.Text, tbPassword.Text);
+                      
+            if (u1 == null)
+            {
+                var dialog = new MessageDialog("User creation failed.");
+                dialog.ShowAsync();
+            }
+            else
+            {
+                SharedData.LoggedInUser = u1;
+                this.Frame.Navigate(typeof(Chat));
+                this.Frame.Navigate(typeof(ConversationsPage), null);
+            }
         }
 
         /// <summary>
@@ -41,5 +55,6 @@ namespace InstantMessagingWindowsApp
         {
             this.Frame.Navigate(typeof(SignupPage), null);
         }
+
     }
 }

@@ -15,9 +15,12 @@ namespace InstantMessagingWindowsApp
         }
 
         #region Methods
-        public void SendMessage(User sender, Account a1, string messageText)
-    {       
 
+        //This method will call SendMessage method of DBManger class and will pass all the details for tblChat table so that we can save all conversation history between sender and Receiver.
+        
+        public void SendMessage(User sender, string PhNumber, string messageText)
+    {
+            dBManager.SendMessage(sender,PhNumber, messageText);
     }
         /// <summary>
         /// This method will create an account
@@ -35,9 +38,9 @@ namespace InstantMessagingWindowsApp
         /// <param name="phoneNumber"></param>
         /// <param name="password"></param>
         /// <returns></returns>. 
-        public User LoginUser(int phoneNumber,string password)
+        public User LoginUser(string emailaddress,string password)
         {
-            User u1=dBManager.getUser(phoneNumber,password);
+            User u1=dBManager.GetUser(emailaddress,password);
             return u1;
         }
         //public void EditAcct(User u)
