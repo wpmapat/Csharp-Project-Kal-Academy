@@ -7,13 +7,33 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="-109,0,0,-53">
-        <TextBox HorizontalAlignment="Left" Margin="304,71,0,0" Text="To:
-                 " VerticalAlignment="Top" Height="129" Width="739" Name="tbTo"/>
-        <Grid HorizontalAlignment="Left" Height="195" Margin="327,327,0,0" VerticalAlignment="Top" Width="720"/>
-        <TextBox HorizontalAlignment="Left" Margin="401,623,0,0" Text="Message Textbox
-                 " VerticalAlignment="Top" Height="97" Width="731" Name="tbMessage"/>
-        <Button Content="Submit" HorizontalAlignment="Left" Margin="386,811,0,0" VerticalAlignment="Top" Height="109" Width="676" Click="Button_Click"/>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <Button Name="btnBack" Content="Back" Click="btnBack_Click" Grid.Row="0" />
+        <TextBlock Name="tbxphonemumber" Text="To:" Grid.Row="1"/>
+        <TextBox Text="" Name="tbTo" Grid.Row="2"/>
 
-    </Grid>
+        <ListView ItemsSource="{x:Bind Messages}" Grid.Row="3">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:Message">
+                    <StackPanel>
+                        <TextBlock FontSize="15" Text="{x:Bind Messagetime}"/>
+                        <TextBlock FontSize="15" Text="{x:Bind MessageText}"/>
+                        <TextBlock FontSize="15" Text="{x:Bind FromPhoneno}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBlock Name="MessageTextbox" Text="Enter your message:" Grid.Row="4"/>
+        <TextBox Text="" Name="tbmesgtx" Grid.Row="5"/>
+        <Button Content="Submit" Click="Button_Click" Grid.Row="6"/>
+        </Grid>
 </Page>

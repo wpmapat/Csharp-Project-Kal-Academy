@@ -11,8 +11,10 @@
      
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
-            <TextBox Name="tbUserName" Text="Enter your username" />
-            <TextBox Name="tbPassword" Text="Enter your password" />
+            <TextBlock Name="tbxUserName" Text="Enter your username"/>
+            <TextBox Name="tbUserName" Text=""/>
+            <TextBlock Name="tbxPassword" Text="Enter your password"/>
+            <TextBox Name="tbPassword" Text="" />
             <Button Name="btnLogin" Content="Login" Click="btnLogin_Click"/>
             <Button Name="btnSignup" Content="Signup" Click="btnSignup_Click"/>
         </StackPanel>

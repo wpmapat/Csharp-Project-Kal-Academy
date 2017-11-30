@@ -22,6 +22,10 @@ namespace InstantMessagingWindowsApp
     {
             dBManager.SendMessage(sender,PhNumber, messageText);
     }
+        public List<Message> getMessages(string ph1, string ph2)
+        {
+            return dBManager.getMessages(ph1, ph2);
+        }
         /// <summary>
         /// This method will create an account
         /// </summary>
@@ -43,8 +47,12 @@ namespace InstantMessagingWindowsApp
             User u1=dBManager.GetUser(emailaddress,password);
             return u1;
         }
-        //public void EditAcct(User u)
-        //public void DeleteAcct(User u)
-#endregion
-    }
+        public List<User> getConversationUsers(User LoggedInUser)
+        {
+            return dBManager.getConversationUsers(LoggedInUser);
+        }
+            //public void EditAcct(User u)
+            //public void DeleteAcct(User u)
+            #endregion
+        }
 }

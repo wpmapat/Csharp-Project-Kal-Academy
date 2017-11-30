@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,17 +23,55 @@ namespace InstantMessagingWindowsApp
     /// </summary>
     public sealed partial class Chat : Page
     {
+        ActionManager ac1 = new ActionManager();
+        private ObservableCollection<Message> Messages;
         public Chat()
         {
+            Messages = new ObservableCollection<Message>();
             this.InitializeComponent();
         }
-
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            User user = (User)e.Parameter;
+            if(user!=null)
+            {
+                tbTo.Text = user.PhoneNo;
+                string phNumber = tbTo.Text;
+                tbTo.IsReadOnly =true;
+                List<Message> listMessages = ac1.getMessages(SharedData.LoggedInUser.PhoneNo, phNumber);
+                Messages.Clear();
+                foreach (Message m in listMessages)
+                {
+                    Messages.Add(m);
+                }
+            }
+            else
+            {
+                tbTo.Text = "";
+                tbTo.IsReadOnly = false;
+                Messages.Clear();
+            }
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ActionManager ac1 = new ActionManager();
-            string messageText = tbMessage.Text;
+            tbTo.IsReadOnly = true;
+            string messageText = tbmesgtx.Text;
             string phNumber =tbTo.Text;
             ac1.SendMessage(SharedData.LoggedInUser,phNumber,messageText);
+
+            List<Message> listMessages = ac1.getMessages(SharedData.LoggedInUser.PhoneNo, phNumber);
+            Messages.Clear();
+            foreach(Message m in listMessages)
+            {
+                Messages.Add(m);
+            }
         }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.GoBack();
+        }
+
     }
 }

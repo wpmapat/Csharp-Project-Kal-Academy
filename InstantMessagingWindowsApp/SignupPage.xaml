@@ -9,11 +9,16 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
-            <TextBox Name="tName" Text="Enter your full name" />
-            <TextBox Name="tbPhoneno" Text="Enter your PhoneNo" InputScope="TelephoneNumber" />
-            <TextBox Name="tbEmailAddress" Text="Enter your EmailAddress" />
-            <TextBox Name="tbPassword" Text="Enter your Password" />
-            <Button Name="btnSubmit" Content="Submit" Click="btnSubmit_Click" /> 
+            <TextBlock Name="tbxUserName" Text="Enter your username"/>
+            <TextBox Name="tName" Text="" />
+            <TextBlock Name="tbXPhoneno" Text="Enter your Phoneno"/>
+            <TextBox Name="tbPhoneno" Text="" InputScope="TelephoneNumber" />
+            <TextBlock Name="tbxEmailAddress" Text="Enter your EmailAddress"/>
+            <TextBox Name="tbEmailAddress" Text="" />
+            <TextBlock Name="tbxPassword" Text="Enter your Password"/>
+            <TextBox Name="tbPassword" Text="" />
+            <Button Name="btnSubmit" Content="Submit" Click="btnSubmit_Click" />
+            <Button Name="btnBack" Content="Back" Click="btnBack_Click" />
 
         </StackPanel>
     </Grid>

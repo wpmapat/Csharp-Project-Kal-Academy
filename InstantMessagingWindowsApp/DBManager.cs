@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace InstantMessagingWindowsApp
 {/// <summary>
-/// For now this class does nothing. Once DB is integrated this code will become more realistic
+/// The methods in this class talks with the database directly.
 /// </summary>
     class DBManager
     {
@@ -122,6 +122,72 @@ namespace InstantMessagingWindowsApp
             }
             return u1;
         }
-        #endregion 
+        public List<Message> getMessages(string Phno1, string Phno2)
+        {
+            List<Message> messages = new List<Message>();
+            User user2, user1 = null;
+            user1 = this.GetIdFromUser(Phno1);
+            user2 = this.GetIdFromUser(Phno2);
+
+
+            string queryString = String.Format("Select * from tblChat Where (FromUserId={0} AND ToUserId={1}) OR (FromUserId={1} AND ToUserId={0})", user1.AccountNumber, user2.AccountNumber);
+            using (SqlConnection connection = new SqlConnection(
+               connectionstring))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    Message m = new Message();
+                    DateTime dt = reader.GetDateTime(1);
+                    int messageFromId = reader.GetInt32(2);
+                    int messageToId = reader.GetInt32(3);
+                    string messageText = reader.GetString(4);
+                    string messageFromPhNo, messageToPhNo;
+                    if (messageFromId == user1.AccountNumber)
+                    {
+                        messageFromPhNo = user1.PhoneNo;
+                        messageToPhNo = user2.PhoneNo;
+                    }
+                    else
+                    {
+                        messageFromPhNo = user2.PhoneNo;
+                        messageToPhNo = user1.PhoneNo;
+                    }
+                    m.FromPhoneno = messageFromPhNo;
+                    m.ToPhoneno = messageToPhNo;
+                    m.MessageText = messageText;
+                    m.Messagetime = dt;
+                    messages.Add(m);
+                 }
+                reader.Close();
+            }
+            return messages;
+        }
+        public List<User> getConversationUsers(User LoggedInUser)
+        {
+            List<User> Users = new List<User>();
+            User u1 = null;
+            string queryString = String.Format("Select * from tblUser where Id IN((select Distinct  ToUserId from tblChat where FromUserId = {0}) Union (Select Distinct  FromUserId from tblChat where ToUserId = {0}))", LoggedInUser.AccountNumber);
+            using (SqlConnection connection = new SqlConnection(
+               connectionstring))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.Connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    
+                    u1 = new User(reader[1].ToString(),reader[3].ToString(), reader[4].ToString(), reader[5].ToString());
+                    u1.AccountNumber = reader.GetInt32(0);
+                    Users.Add(u1);
+                }
+                reader.Close();
+            }
+            return Users;
+        }
+
+        #endregion
     }
 }
